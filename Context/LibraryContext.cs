@@ -13,5 +13,7 @@ namespace Nathan.Context
 
         // Define DbSet properties for your entities (e.g., User)
         public DbSet<Author> Authors { get; set; }
+
+        public DbSet<Book> Books { get; set; }
     }
 }

@@ -168,16 +168,54 @@ namespace Nathan.Migrations
                     b.Property<DateTime>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AuthorName")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("UserID");
 
                     b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Nathan.Models.Book", b =>
+                {
+                    b.Property<Guid>("BookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BookId");
+
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("AuthorID");
+
+                    b.Property<string>("BookName")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("CopiesSold")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UserID");
+
+                    b.Property<DateTime>("DatePublished")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Publisher")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("BookId");
+
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Nathan.Models.UserModel", b =>

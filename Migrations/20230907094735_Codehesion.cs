@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Nathan.Migrations
 {
     /// <inheritdoc />
-    public partial class CodeHesion : Migration
+    public partial class Codehesion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,7 @@ namespace Nathan.Migrations
                 columns: table => new
                 {
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuthorName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -63,6 +63,23 @@ namespace Nathan.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BookName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
+                    Publisher = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
+                    DatePublished = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CopiesSold = table.Column<int>(type: "int", nullable: false),
+                    AuthorID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookId);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,6 +248,9 @@ namespace Nathan.Migrations
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

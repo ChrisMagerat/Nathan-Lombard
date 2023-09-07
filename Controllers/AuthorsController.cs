@@ -85,8 +85,8 @@ namespace Nathan.Controllers
                 {
                     var author = new Author
                     {
-                        UserId = userId,
-                        Name = authoradd.name,
+                        CreatedBy = userId,
+                        AuthorName = authoradd.name,
                         ActiveFrom = authoradd.activeFrom,
                         ActiveTo = authoradd.activeTo
                     };
@@ -131,16 +131,16 @@ namespace Nathan.Controllers
                     if (existingAuthor == null) return NotFound("The author does not exist");
 
 
-                    if (existingAuthor.UserId != userId)
+                    if (existingAuthor.CreatedBy != userId)
                     {
                         return BadRequest("You do not have access to edit this author");
                     }
                     else
                     {
-                        existingAuthor.Name = authorEdit.name;
+                        existingAuthor.AuthorName = authorEdit.name;
                         existingAuthor.ActiveFrom = authorEdit.activeFrom;
                         existingAuthor.ActiveTo = authorEdit.activeTo;
-                        existingAuthor.UserId = userId;
+                        existingAuthor.CreatedBy = userId;
                     }
                     await _repsository.SaveChangesAsync();
 
@@ -181,9 +181,9 @@ namespace Nathan.Controllers
                     if (existingAuthor == null) return NotFound($"The author does not exist");
 
 
-                    if (existingAuthor.UserId != userId)
+                    if (existingAuthor.CreatedBy != userId)
                     {
-                        return BadRequest("You do not have access to edit this author");
+                        return BadRequest("You do not have access to delete this author");
                     }
                     else
                     {
